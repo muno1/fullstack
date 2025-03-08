@@ -1,0 +1,12 @@
+import { Pizza } from "lucide-react";
+
+export default function Navbar() {
+  return (
+    <div className="flex items-center justify-between w-full px-6 py-2  ">
+      <div className="flex items-center space-x-2 ps-5 pt-2px">
+        <Pizza className="w-7 h-7" color="red" />
+        <h1 className="text-xl font-bold text-black">La Chat</h1>
+      </div>
+    </div>
+  );
+}
