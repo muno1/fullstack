@@ -2,6 +2,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Card } from "@/components/ui/card";
+
 import {
   ArrowUpIcon,
   CheckIcon,
@@ -134,9 +136,9 @@ export default function Home() {
           <Navbar />
         </header>
 
-        <main
+        <Card
           ref={chatContainerRef}
-          className="h-full w-2/3 self-center flex-1 p-2 m-1 border-1 rounded-sm overflow-y-auto shadow-sm "
+          className="h-full w-2/3 self-center flex-1 p-2 m-1 border-1 rounded-sm overflow-y-auto shadow-md "
           style={{
             maxHeight: "calc(100vh - 220px)",
             scrollbarWidth: "none",
@@ -163,17 +165,21 @@ export default function Home() {
                   >
                     {msg.sender !== "user" ? (
                       <>
-                        <StarsIcon className="w-6 h-6 text-black mt-1 flex-shrink-0" />
-                        <div className="p-3 rounded-xl bg-gray-200 text-black max-w-md break-words">
+                        <div className="bg-gray-200 rounded-full p-1 shadow-md">
+                          <StarsIcon className="w-7 h-6 text-black" />
+                        </div>
+                        <div className="p-3 rounded-xl bg-gray-200 text-black max-w-md break-words translate-y-2 shadow-xl">
                           <p className="text-sm">{msg.text}</p>
                         </div>
                       </>
                     ) : (
                       <>
-                        <div className="p-3 rounded-xl bg-gray-200 text-black max-w-md break-words">
+                        <div className="rounded-xl bg-black text-white max-w-md break-words p-3 translate-y-2 shadow-xl">
                           <p className="text-sm">{msg.text}</p>
                         </div>
-                        <UserIcon className="w-6 h-6 text-black mt-1 flex-shrink-0" />
+                        <div className="bg-black rounded-full p-1">
+                          <UserIcon className="w-5 h-5 text-white flex-shrink-0 shadow-md" />
+                        </div>
                       </>
                     )}
                   </div>
@@ -181,13 +187,13 @@ export default function Home() {
               </div>
             )}
           </div>
-        </main>
+        </Card>
 
-        <footer className="bg-gray backdrop-blur-md">
-          <div className="w-full md:w-7/12 lg:w-5/12 xl:w-4/12 mx-auto border border-gray-200 shadow-xl translate-y-2 flex flex-col space-y-2 p-4 rounded-3xl bg-transparent">
+        <footer className="bg-gray">
+          <div className="w-full md:w-2/3 lg:w-2/3 xl:w-1/2 2xl:w-1/3 mx-auto border border-gray-200 shadow-xl translate-y-2 flex flex-col space-y-2 p-4 rounded-3xl bg-transparent">
             <div className="flex-1 w-full h-full flex flex-col space-y-2">
               <Input
-                className="border-0 bg-transparent shadow-none outline-none ring-0 ring-offset-0 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 w-full text-base"
+                className="border-0 bg-transparent shadow-none outline-none ring-0 ring-offset-0 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 w-full text-base -translate-x-2 -translate-y-2"
                 placeholder={isLoading ? "Attendere..." : "Chiedimi qualcosa.."}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -220,19 +226,19 @@ export default function Home() {
 
         {isFactcheckOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white rounded-lg shadow-xl w-11/12 max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
+            <div className="bg-white rounded-md shadow-xl w-11/12 max-w-2xl max-h-[80vh] overflow-hidden flex flex-col">
               <div className="flex items-center justify-between px-6 py-4 border-b">
                 <h3 className="text-lg font-medium">Fact Checker</h3>
                 <Button
-                  variant="ghost"
+                  variant="default"
                   size="sm"
                   onClick={toggleFactcheck}
-                  className="rounded-full p-1 hover:bg-gray-100"
+                  className="rounded-md p-1 bg-black hover:bg-gray-400"
                 >
-                  <XIcon size={20} />
+                  <XIcon color="white" />
                 </Button>
               </div>
-              <div className="flex-1 overflow-y-auto p-6">
+              <div className="flex-1 p-6">
                 <Factcheck documents={documents} />
               </div>
             </div>

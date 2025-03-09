@@ -5,13 +5,14 @@ interface FactCheckProps {
 export default function Factcheck({ documents }: FactCheckProps) {
   console.log(documents);
   return (
-    <div className="border-1 p-2 rounded-md bg-gray-100 bg-backdrop-blur">
-      <h2 className="border-1 text-xl font-bold rounded-md p-2 mb-4 bg-white">
-        Fact Check:
-      </h2>
-      <div className="flex justify-between"></div>
+    <div className="border-1 p-2 rounded-sm bg-gray-100 bg-backdrop-blur overflow-hidden scrollbar-witdh-none">
       {documents.length > 0 ? (
-        <ul className="w-full space-y-5 max-h-135 overflow-y-auto overflow-y-hidden overflow-y-scroll ">
+        <ul
+          className="w-19/20 space-y-5 p-3 justify-self-center max-h-120 overflow-y-scroll"
+          style={{
+            scrollbarWidth: "none",
+          }}
+        >
           {documents.map((doc, index) => (
             <li
               key={index}
