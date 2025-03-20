@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
+import Editor from "./components/editor";
 
 import {
   ArrowUpIcon,
@@ -136,93 +137,99 @@ export default function Home() {
           <Navbar />
         </header>
 
-        <Card
-          ref={chatContainerRef}
-          className="h-full w-2/3 self-center flex-1 p-2 m-1 border-1 rounded-sm overflow-y-auto shadow-md "
-          style={{
-            maxHeight: "calc(100vh - 220px)",
-            scrollbarWidth: "none",
-          }}
-        >
-          <div className="w-full h-full">
-            {messages.length === 0 ? (
-              <div className="flex items-center justify-center h-full">
-                <div className="text-center text-gray-500">
-                  <h2 className="text-2xl font-semibold mb-2">
-                    Benvenuto in DataPizza AI
-                  </h2>
-                  <p>Fai una domanda per iniziare la conversazione</p>
+        <main className="flex-1 flex flex-row gap-2 p-2">
+          <div className="w-7/10 h-full ">
+            <Card
+              ref={chatContainerRef}
+              className="h-full w-full mx-auto p-2 border rounded-sm overflow-y-auto shadow-md"
+            >
+              <div className="w-full">
+                {messages.length === 0 ? (
+                  <div className="flex items-center justify-center h-full">
+                    <div className="text-center text-gray-500">
+                      <h2 className="text-2xl font-semibold mb-2">
+                        Welcome to Faang AI
+                      </h2>
+                      <p></p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-4 px-4">
+                    {messages.map((msg, index) => (
+                      <div
+                        key={index}
+                        className={`flex items-start space-x-2 ${
+                          msg.sender === "user"
+                            ? "justify-end"
+                            : "justify-start"
+                        }`}
+                      >
+                        {msg.sender !== "user" ? (
+                          <>
+                            <div className="bg-gray-200 rounded-full p-1 shadow-md">
+                              <StarsIcon className="w-7 h-6 text-black" />
+                            </div>
+                            <div className="p-3 rounded-xl bg-gray-200 text-black max-w-md break-words translate-y-2 shadow-xl">
+                              <p className="text-sm">{msg.text}</p>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="rounded-xl bg-black text-white max-w-md break-words p-3 translate-y-2 shadow-xl">
+                              <p className="text-sm">{msg.text}</p>
+                            </div>
+                            <div className="bg-black rounded-full p-1">
+                              <UserIcon className="w-5 h-5 text-white flex-shrink-0 shadow-md" />
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div className="w-full fixed bottom-2 md:w-2/3 lg:w-2/3 xl:w-1/2 2xl:w-1/3 mx-auto border border-gray-200 shadow-xl  p-4 rounded-3xl bg-gray-50">
+                <div className="flex-1 w-full h-full flex flex-col space-y-2">
+                  <Input
+                    className="border-0 bg-transparent shadow-none outline-none ring-0 ring-offset-0 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 w-full text-base -translate-x-2 -translate-y-2"
+                    placeholder={
+                      isLoading ? "Attendere..." : "Chiedimi qualcosa.."
+                    }
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    disabled={isLoading}
+                  />
+                  <div className="flex justify-between items-center mt-2 space-x-2">
+                    <Button
+                      variant="ghost"
+                      className="rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200 shadow-md"
+                      disabled={isLoading}
+                      onClick={toggleFactcheck}
+                    >
+                      <CheckIcon size={20} color="green" />
+                    </Button>
+                    <Button
+                      className="rounded-full bg-white border-gray hover:bg-gray-200 shadow-md"
+                      onClick={handleSend}
+                      disabled={isLoading || !query}
+                    >
+                      <ArrowUpIcon
+                        size={30}
+                        color={isLoading || !query ? "gray" : "black"}
+                      />
+                    </Button>
+                  </div>
                 </div>
               </div>
-            ) : (
-              <div className="space-y-4 px-4">
-                {messages.map((msg, index) => (
-                  <div
-                    key={index}
-                    className={`flex items-start space-x-2 ${
-                      msg.sender === "user" ? "justify-end" : "justify-start"
-                    }`}
-                  >
-                    {msg.sender !== "user" ? (
-                      <>
-                        <div className="bg-gray-200 rounded-full p-1 shadow-md">
-                          <StarsIcon className="w-7 h-6 text-black" />
-                        </div>
-                        <div className="p-3 rounded-xl bg-gray-200 text-black max-w-md break-words translate-y-2 shadow-xl">
-                          <p className="text-sm">{msg.text}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="rounded-xl bg-black text-white max-w-md break-words p-3 translate-y-2 shadow-xl">
-                          <p className="text-sm">{msg.text}</p>
-                        </div>
-                        <div className="bg-black rounded-full p-1">
-                          <UserIcon className="w-5 h-5 text-white flex-shrink-0 shadow-md" />
-                        </div>
-                      </>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+            </Card>
           </div>
-        </Card>
+          <div className="w-5/9">
+            <Editor />
+          </div>
+        </main>
 
-        <footer className="bg-gray">
-          <div className="w-full md:w-2/3 lg:w-2/3 xl:w-1/2 2xl:w-1/3 mx-auto border border-gray-200 shadow-xl translate-y-2 flex flex-col space-y-2 p-4 rounded-3xl bg-transparent">
-            <div className="flex-1 w-full h-full flex flex-col space-y-2">
-              <Input
-                className="border-0 bg-transparent shadow-none outline-none ring-0 ring-offset-0 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 w-full text-base -translate-x-2 -translate-y-2"
-                placeholder={isLoading ? "Attendere..." : "Chiedimi qualcosa.."}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={handleKeyDown}
-                disabled={isLoading}
-              />
-              <div className="flex justify-between items-center mt-2 space-x-2">
-                <Button
-                  variant="ghost"
-                  className="rounded-full bg-white text-black px-4 py-2 hover:bg-gray-200 shadow-md"
-                  disabled={isLoading}
-                  onClick={toggleFactcheck}
-                >
-                  <CheckIcon size={20} color="green" />
-                </Button>
-                <Button
-                  className="rounded-full bg-white border-gray hover:bg-gray-200 shadow-md"
-                  onClick={handleSend}
-                  disabled={isLoading || !query}
-                >
-                  <ArrowUpIcon
-                    size={30}
-                    color={isLoading || !query ? "gray" : "black"}
-                  />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </footer>
+        <footer className="bg-gray"></footer>
 
         {isFactcheckOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
