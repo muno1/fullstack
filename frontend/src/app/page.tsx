@@ -130,7 +130,7 @@ export default function Home() {
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
       <div
         className={`flex flex-col flex-1 transition-all duration-300 bg-gradient-to-t from-gray-100 from-10% via-slate-100 via-20% to-slate-50 -mt-px ${
-          sidebarOpen ? "ml-64" : "ml-0"
+          sidebarOpen ? "ml-48" : "ml-0"
         }`}
       >
         <header className="sticky items-center justify-between px-4 py-2 border-b bg-white backdrop-blur">
@@ -141,9 +141,9 @@ export default function Home() {
           <div className="w-7/10 h-full ">
             <Card
               ref={chatContainerRef}
-              className="h-full w-full mx-auto p-2 border rounded-sm overflow-y-auto shadow-md"
+              className="h-full w-full mx-auto p-2 border rounded-sm overflow-hidden shadow-md"
             >
-              <div className="w-full">
+              <div className="w-full h-full">
                 {messages.length === 0 ? (
                   <div className="flex items-center justify-center h-full">
                     <div className="text-center text-gray-500">
@@ -188,10 +188,20 @@ export default function Home() {
                   </div>
                 )}
               </div>
-              <div className="w-full fixed bottom-2 md:w-2/3 lg:w-2/3 xl:w-1/2 2xl:w-1/3 mx-auto border border-gray-200 shadow-xl  p-4 rounded-3xl bg-gray-50">
+              <div className="w-full bottom-2 mx-auto border border-gray-200 shadow-xl p-4 rounded-3xl bg-gray-50">
                 <div className="flex-1 w-full h-full flex flex-col space-y-2">
                   <Input
-                    className="border-0 bg-transparent shadow-none outline-none ring-0 ring-offset-0 focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 w-full text-base -translate-x-2 -translate-y-2"
+                    className="border-0 border-none bg-transparent shadow-none outline-none ring-0 ring-offset-0
+                  hover:border-0 hover:border-none hover:outline-none hover:ring-0 hover:shadow-none
+                  focus:border-0 focus:border-none focus:outline-none focus:ring-0 focus:shadow-none
+                  active:border-0 active:border-none active:outline-none active:ring-0 active:shadow-none
+                  focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-none
+                  placeholder:text-gray-400 w-full text-base"
+                    style={{
+                      border: "none",
+                      outline: "none",
+                      boxShadow: "none",
+                    }}
                     placeholder={
                       isLoading ? "Attendere..." : "Chiedimi qualcosa.."
                     }
@@ -224,12 +234,10 @@ export default function Home() {
               </div>
             </Card>
           </div>
-          <div className="w-5/9">
+          <div className="w-full h-full">
             <Editor />
           </div>
         </main>
-
-        <footer className="bg-gray"></footer>
 
         {isFactcheckOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
