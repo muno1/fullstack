@@ -141,12 +141,12 @@ export default function Home() {
           <div className="w-7/10 h-full ">
             <Card
               ref={chatContainerRef}
-              className="h-full w-full mx-auto p-2 border rounded-sm overflow-hidden shadow-md"
+              className="h-full w-full mx-auto p-2 border rounded-sm overflow-hidden shadow-md bg-zinc-950"
             >
               <div className="w-full h-full">
                 {messages.length === 0 ? (
                   <div className="flex items-center justify-center h-full">
-                    <div className="text-center text-gray-500">
+                    <div className="text-center text-white">
                       <h2 className="text-2xl font-semibold mb-2">
                         Welcome to Faang AI
                       </h2>
@@ -188,7 +188,7 @@ export default function Home() {
                   </div>
                 )}
               </div>
-              <div className="w-full bottom-2 mx-auto border border-gray-200 shadow-xl p-4 rounded-3xl bg-gray-50">
+              <div className="w-full bottom-2 mx-auto border border-gray-200 shadow-xl p-4 rounded-3xl bg-zinc-900 text-white">
                 <div className="flex-1 w-full h-full flex flex-col space-y-2">
                   <Input
                     className="border-0 border-none bg-transparent shadow-none outline-none ring-0 ring-offset-0

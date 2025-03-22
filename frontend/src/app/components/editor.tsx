@@ -91,12 +91,11 @@ const Editor = () => {
   return (
     <div className="relative flex flex-col w-full h-full gap-4">
       <div className="relative flex flex-col flex-1 border border-gray-300 rounded-md shadow-lg bg-[#1e1e1e] overflow-hidden">
-        {/* Language Selector */}
-        <div className="h-12 border-b border-gray-600 flex items-center px-4">
+        <div className="h-12 border-b border-gray-600 flex items-center px-4 bg-slate-950">
           <select
             value={language}
             onChange={(e) => setLanguage(e.target.value as Language)}
-            className="px-1 py-1 bg-gray-750 border border-gray-600 rounded-md text-white text-sm focus:outline-none focus:ring-1 focus:ring-gray-500"
+            className="px-1 py-1 bg-slate-950 border border-gray-600 rounded-md text-white text-sm focus:outline-none focus:ring-1 focus:ring-slate-700"
             style={{ backgroundColor: "#1e1e1e" }}
             size={1}
           >
@@ -126,7 +125,7 @@ const Editor = () => {
         </div>
 
         <div
-          className="absolute bottom-0 left-0 w-full h-6 bg-gray-800 text-white text-xs flex items-center justify-center cursor-pointer hover:bg-gray-700"
+          className="absolute bottom-0 left-0 w-full h-6 bg-gray-900 text-white text-xs flex items-center justify-center cursor-pointer hover:bg-gray-800"
           onClick={() => setIsConsoleOpen(!isConsoleOpen)}
         >
           <TerminalIcon size={14} className="mr-2" />
@@ -134,7 +133,7 @@ const Editor = () => {
         </div>
 
         <div
-          className={`absolute left-0 w-full bg-black text-white font-mono text-sm rounded-md overflow-auto transition-all duration-300 ${
+          className={`absolute left-0 w-full bg-gray-950 text-white font-mono text-sm rounded-md overflow-auto transition-all duration-300 ${
             isConsoleOpen ? "bottom-6 h-32" : "bottom-0 h-0"
           }`}
         >
