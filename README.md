@@ -1,6 +1,6 @@
-# Fullstack Test🍕
+# Fullstack Test�
 
-This repository is designed to test my technical skills for a fullstack developer position at Datapizza.
+This repository is designed to test my technical skills for a fullstack developer position.
 The frontend was designed using React (Next.js, TailwindCSS) and Python (FastAPI, Uvicorn) for the backend.
 
 ## Project Overview 🌐
